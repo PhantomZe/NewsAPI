@@ -266,25 +266,53 @@
 			var searchItem = document.getElementById('searchItem').value;
 
 			$('.NewsData').remove();
-			
-			for(i=0; i<dataNews.length; i++){
-				if(dataNews[i].title.toLowerCase().includes(searchItem.toLowerCase())){
-					var divAdd = "<div class='col-lg-3 col-md-4 col-sm-6 pb-1 NewsData'>" 
-									+"<div class='product-item bg-light mb-4'>"
-										+"<div class='py-4 text-center'>"
-											+"<h4 class ='text-center'><p id='wrap-it'>"+ dataNews[i].author +"</p></h4>"
-											+"<div class='d-flex mt-2'>"
-												+"<h6>" + dataNews[i].title + "</h6></br>"
+			var url = "webapi/newsresource/Search/" + searchItem;
+			$(document).ready(function(){
+			    $.ajax({
+			        type: "GET",
+			        url: url,
+			        async: false,
+			        success: function (data) {
+			        	dataNews = data;
+			        	for(i=0; i<data.length; i++){
+						    var divAdd = "<div class='col-lg-3 col-md-4 col-sm-6 pb-1 NewsData'>" 
+												+"<div class='product-item bg-light mb-4'>"
+													+"<div class='py-4 text-center'>"
+														+"<h4 class ='text-center'><p id='wrap-it'>"+ data[i].author +"</p></h4>"
+														+"<div class='d-flex mt-2'>"
+															+"<h6>" + data[i].title + "</h6></br>"
+														+"</div>"
+														+"<div class='d-flex align-items-center justify-content-center mt-2'>"
+															+"<a href='"+data[i].url+"' target='_blank'>Click Here to access</a>"
+														+"</div>"
+													+"</div>"
+												+"</div>"
 											+"</div>"
-											+"<div class='d-flex align-items-center justify-content-center mt-2'>"
-												+"<a href='"+dataNews[i].url+"' target='_blank'>Click Here to access</a>"
-											+"</div>"
-										+"</div>"
-									+"</div>"
-								+"</div>"
-					$("#dataNews").append(divAdd);
-				}
-			}
+			        		$("#dataNews").append(divAdd);
+			        			
+			        	}
+			        }
+			    });
+			});
+			//Search title manual
+			//for(i=0; i<dataNews.length; i++){
+			//	if(dataNews[i].title.toLowerCase().includes(searchItem.toLowerCase())){
+			//		var divAdd = "<div class='col-lg-3 col-md-4 col-sm-6 pb-1 NewsData'>" 
+			//						+"<div class='product-item bg-light mb-4'>"
+			//							+"<div class='py-4 text-center'>"
+			//								+"<h4 class ='text-center'><p id='wrap-it'>"+ dataNews[i].author +"</p></h4>"
+			//								+"<div class='d-flex mt-2'>"
+			//									+"<h6>" + dataNews[i].title + "</h6></br>"
+			//								+"</div>"
+			//								+"<div class='d-flex align-items-center justify-content-center mt-2'>"
+			//									+"<a href='"+dataNews[i].url+"' target='_blank'>Click Here to access</a>"
+			//								+"</div>"
+			//							+"</div>"
+			//						+"</div>"
+			//					+"</div>"
+			//		$("#dataNews").append(divAdd);
+			//	}
+			//}
 		
 		});
 		

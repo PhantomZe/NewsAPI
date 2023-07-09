@@ -43,6 +43,17 @@ public class newsResource {
 		List<news> data = getListNewsArticles(url);
         return new Gson().toJson(data);
     }
+
+	//Get News With Search
+    @GET
+    @Path("/Search/{Search}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getNewsBySearch(@PathParam("Search") String Search) {
+
+    	String url = "http://newsapi.org/v2/top-headlines?country=id&q="+Search+"&apiKey="+APIkey;
+		List<news> data = getListNewsArticles(url);
+        return new Gson().toJson(data);
+    }
     
     public List<news> getListNewsArticles(String url) {
 
